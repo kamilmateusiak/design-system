@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import CheckIcon from 'react-material-icon-svg/dist/CheckIcon';
 import styles from './style.scss';
 import getMergedClassNames from '../../utils/getMergedClassNames';
@@ -21,6 +22,10 @@ const Checkbox = props => {
       />
     </div>
   );
+};
+
+Checkbox.propTypes = {
+  className: PropTypes.string
 };
 
 export default Checkbox;

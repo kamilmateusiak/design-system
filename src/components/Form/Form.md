@@ -147,6 +147,7 @@ onSubmit = (e) => {
           id='input-field-example-1'
           placeholder='Name...'
           description='Field is required and should contain only letters'
+          onChange={() => {}}
         />
         <InputField
           value=''
@@ -157,6 +158,7 @@ onSubmit = (e) => {
           id='input-field-example-1'
           placeholder='Surname...'
           description='Field is required and should contain only letters'
+          onChange={() => {}}
         />
         </FieldGroup>
         <TextAreaField
