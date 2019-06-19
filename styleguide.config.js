@@ -41,6 +41,10 @@ module.exports = {
           components: './src/components/Button/Button.js'
         },
         {
+          name: 'Link',
+          components: './src/components/Link/Link.js'
+        },
+        {
           name: 'Tab',
           components: './src/components/Tab/Tab.js'
         },

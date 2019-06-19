@@ -1,4 +1,5 @@
 export { Button } from './Button';
+export { Link } from './Link';
 export { Card } from './Card';
 
 export { Tab, TabsWrapper, TabsList } from './Tab';
