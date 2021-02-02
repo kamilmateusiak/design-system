@@ -26,36 +26,14 @@ function handleColorClick(e) {
   }, 1000);
 }
 
-const COLOR_TONES = [950, 900, 800, 700, 600, 500, 400, 300, 200, 150, 100, 75, 50, 25];
+const COLOR_TONES = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50, 40, 30];
 
 export function ColorPalette(props) {
-  const { paletteName, fontColor, ignoreContrast } = props;
-
-  if (paletteName === "white") {
-    const colorName = "white";
-    const colorValue = Colors[colorName]
-    return (
-      <div>
-        <h3>{paletteName.toUpperCase()}</h3>
-        <div className={styles.colors__palette}>
-          <SingleColor
-            key={colorValue}
-            title={colorName}
-            subtitle={colorValue}
-            ignoreContrast={ignoreContrast}
-            color1={colorValue}
-            color2={fontColor}
-            onClick={handleColorClick}
-            feedbackText="COPIED!"
-          />
-        </div>
-      </div>
-    );
-  }
+  const { paletteName, darkFontColor } = props;
 
   return (
     <div>
-      <h3>{paletteName.toUpperCase()}</h3>
+      <h2>{paletteName.toUpperCase()}</h2>
       <div className={styles.colors__palette}>
         {COLOR_TONES.map(tone => {
           const colorName = `${paletteName}${tone}`;
@@ -66,9 +44,8 @@ export function ColorPalette(props) {
                 key={colorValue}
                 title={colorName}
                 subtitle={colorValue}
-                ignoreContrast={ignoreContrast}
                 color1={colorValue}
-                color2={fontColor}
+                color2={darkFontColor}
                 onClick={handleColorClick}
                 feedbackText="COPIED!"
               />
@@ -83,6 +60,5 @@ export function ColorPalette(props) {
 
 ColorPalette.propTypes = {
   paletteName: PropTypes.string.isRequired,
-  fontColor: PropTypes.string.isRequired,
-  ignoreContrast: PropTypes.bool
+  darkFontColor: PropTypes.string.isRequired
 };

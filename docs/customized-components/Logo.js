@@ -3,20 +3,15 @@ import PropTypes from 'prop-types';
 import Styled from 'rsg-components/Styled'; // eslint-disable-line import/no-unresolved
 
 const styles = ({ color }) => ({
-  wrapper: {
+  logoWrapper: {
     display: 'flex',
-    flexFlow: 'row wrap',
-    cursor: 'pointer',
-    margin: '-5px',
-    padding: '5px',
-    boxSizing: 'border-box'
+    flexFlow: 'row wrap'
   },
   logoImg: {
     display: 'block',
     margin: '0 0 10px',
     width: '36px',
-    height: '36px',
-    cursor: 'pointer',
+    height: '36px'
   },
   titleWrapper: {
     display: 'flex',
@@ -31,26 +26,25 @@ const styles = ({ color }) => ({
     color: color.base,
     fontSize: '24px',
     lineHeight: '28px',
-    fontWeight: '600',
-    cursor: 'pointer',
+    fontWeight: '600'
   }
 });
 
 export function LogoRenderer({ classes }) {
   return (
-    <a href="/" className={classes.wrapper}>
+    <div className={classes.logoWrapper}>
       <img
         src="./logo.svg"
         alt="Design System logo"
         className={classes.logoImg}
       />
       <div className={classes.titleWrapper}>
-        <span className={classes.docsLink}>
+        <a href="/docs" className={classes.docsLink}>
           LiveChat Docs
-        </span>
+        </a>
         <h2 className={classes.text}>Design System</h2>
       </div>
-    </a>
+    </div>
   );
 }
 
