@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import themes from '@livechat/design-system-themes';
+import DSThemes from '@livechat/design-system-themes';
 import ThemeContext from './ThemeContext';
 import { DEFAULT_THEME_NAME } from './constants';
 
-function getThemeName(themeName) {
+function getThemeName(themes, themeName) {
   if (!themeName || !themes[themeName]) {
     return DEFAULT_THEME_NAME;
   }
@@ -13,31 +13,49 @@ function getThemeName(themeName) {
 }
 
 export class ThemeProvider extends React.PureComponent {
-  componentDidMount() {
-    const themeName = getThemeName(this.props.themeName);
+  htmlElement = undefined;
 
-    document.querySelector('html').classList.add(`lc-theme--${themeName}`)
+  componentDidMount() {
+    this.addCurrentThemeClassName();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.themeName !== this.props.themeName) {
-      const themeName = getThemeName(this.props.themeName);
-      const previousThemeName = getThemeName(prevProps.themeName);
-
-      const htmlElement = document.querySelector('html');
-
-      htmlElement.classList.remove(`lc-theme--${previousThemeName}`);
-      htmlElement.classList.add(`lc-theme--${themeName}`);
+      this.toggleCurrentThemeClassName(prevProps.themeName)
     }
   }
 
+  getHtmlElement = () => {
+    if (!this.htmlElement) {
+      this.htmlElement = document.querySelector('html');
+    }
+
+    return this.htmlElement
+  }
+
+  addCurrentThemeClassName = () => {
+    const themeName = getThemeName(this.props.themes, this.props.themeName);
+    const htmlElement = this.getHtmlElement();
+
+    htmlElement.classList.add(`lc-theme--${themeName}`)
+  }
+
+  toggleCurrentThemeClassName = prevValue => {
+    const themeName = getThemeName(this.props.themes, this.props.themeName);
+    const previousThemeName = getThemeName(this.props.themes, prevValue);
+    const htmlElement = this.getHtmlElement();
+
+    htmlElement.classList.remove(`lc-theme--${previousThemeName}`);
+    htmlElement.classList.add(`lc-theme--${themeName}`);
+  }
+
   render() {
-    const themeName = getThemeName(this.props.themeName);
+    const themeName = getThemeName(this.props.themes, this.props.themeName);
 
     return (
       <ThemeContext.Provider
         value={{
-          theme: themes[themeName],
+          theme: this.props.themes[themeName],
           themeName,
           onThemeChange: this.props.onThemeChange
         }}
@@ -49,14 +67,14 @@ export class ThemeProvider extends React.PureComponent {
 }
 
 ThemeProvider.defaultProps = {
-  themes
+  themes: DSThemes
 }
 
 ThemeProvider.propTypes = {
+  children: PropTypes.node,
+  themes: PropTypes.object,
   themeName: PropTypes.string,
   onThemeChange: PropTypes.func,
-  themes: PropTypes.object,
-  children: PropTypes.node
 };
 
 export default ThemeProvider;

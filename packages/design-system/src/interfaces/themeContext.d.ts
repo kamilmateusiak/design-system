@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Theme, ThemeName } from "@livechat/design-system-themes";
+import { Theme as DSTheme, ThemeName as DSThemeName } from "@livechat/design-system-themes";
 import { Omit } from "./switch";
 
 export interface IThemeContext {
@@ -9,8 +9,8 @@ export interface IThemeContext {
 
 export type IOptionalThemeContext = Partial<IThemeContext>;
 
-export type Theme = Theme;
-export type ThemeName = ThemeName;
+export type Theme = DSTheme;
+export type ThemeName = DSThemeName;
 
 export interface IThemeConsumerProps {
   children(context: IThemeContext): React.ReactNode;
@@ -20,7 +20,9 @@ export interface IThemeProviderProps {
   themes?: {
     [themeName: string]: Theme
   };
-  themeName: ThemeName;
+  themeName?: ThemeName;
+  children: React.ReactNode;
+  onThemeChange?: () => void;
 }
 
 export var ThemeContext: React.Context<IThemeContext>;
